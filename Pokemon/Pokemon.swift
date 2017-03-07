@@ -14,21 +14,15 @@ class Pokemon {
     private var _pokedexID: Int!
     
     var name: String {
-        get {
-            return _name
-        }
-        set {}
+        return _name
     }
     
     var pokedexID: Int {
-        get {
-            return _pokedexID
-        }
-        set {}
+        return _pokedexID
     }
     
     init(name: String, pokedexID: Int) {
-        self.name = name
-        self.pokedexID = pokedexID
+        self._name = name
+        self._pokedexID = pokedexID
     }
 }
