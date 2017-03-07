@@ -11,18 +11,43 @@ import UIKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collection: UICollectionView!
+    
+    var pokemons = [Pokemon]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collection.dataSource = self
         collection.delegate = self
+        
+        parsePokemonCSV()
+    }
+    
+    func parsePokemonCSV() {
+    
+        let path = Bundle.main.path(forResource: "pokemon", ofType: "csv")! //pokupio sam excel fajl
+        do {
+            let csv = try CSV(contentsOfURL: path) //parsiram excel fajl pomocu CSV biblioteke koju sam ubacio
+            let rows = csv.rows
+            print(rows)
+            
+            for row in rows {
+                let pokeID = Int(row["id"]!)!
+                let name = row["identifier"]!
+                
+                let poke = Pokemon(name: name, pokedexID: pokeID)
+                pokemons.append(poke)
+            }
+        } catch let error as NSError {
+            print(error.debugDescription)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell {
         
-            let pokemon = Pokemon(name: "Pokemon", pokedexID: indexPath.row)
+            //let pokemon = Pokemon(name: "Pokemon", pokedexID: indexPath.row)
+            let pokemon = pokemons[indexPath.row]
             cell.configureCell(pokemon: pokemon)
             return cell
         } else {
@@ -37,7 +62,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return pokemons.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
