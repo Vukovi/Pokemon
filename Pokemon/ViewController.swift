@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collection: UICollectionView!
     
     var pokemons = [Pokemon]()
+    var musicPlayer: AVAudioPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collection.delegate = self
         
         parsePokemonCSV()
+        initAudio()
     }
     
     func parsePokemonCSV() {
@@ -38,6 +41,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 let poke = Pokemon(name: name, pokedexID: pokeID)
                 pokemons.append(poke)
             }
+        } catch let error as NSError {
+            print(error.debugDescription)
+        }
+    }
+    
+    func initAudio() {
+        let path = Bundle.main.path(forResource: "pokemon", ofType: "mp3")
+        do {
+            let url = URL(string: path!)
+            musicPlayer = try AVAudioPlayer(contentsOf: url!)
+            musicPlayer.prepareToPlay()
+            musicPlayer.numberOfLoops = -1 //ovo znaci da ce non stop da se vrti muzika
+            musicPlayer.play()
         } catch let error as NSError {
             print(error.debugDescription)
         }
@@ -72,5 +88,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 105, height: 105) // kao one u storyboardu
     }
+    
+    @IBAction func musicBtnPressed(_ sender: UIButton) {
+        if musicPlayer.isPlaying {
+            musicPlayer.pause()
+            sender.alpha = 0.2
+        } else {
+            musicPlayer.play()
+            sender.alpha = 1.0
+        }
+    }
+    
 }
 
