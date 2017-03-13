@@ -21,7 +21,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pokemon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -159,6 +158,7 @@
                         <segue destination="HIi-TQ-ztV" kind="show" identifier="PokemonDetailVCSegue" id="PtO-uY-3tV"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
@@ -194,6 +194,9 @@
                                             <constraint firstAttribute="height" constant="23" id="s0h-xM-DLl"/>
                                         </constraints>
                                         <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="HIi-TQ-ztV" eventType="touchUpInside" id="vVI-Uj-edI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.34509803919999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -449,6 +452,20 @@
                             <constraint firstItem="1ir-m4-Wgt" firstAttribute="leading" secondItem="N8i-sz-FW4" secondAttribute="leadingMargin" id="fXL-kE-e83"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="baseAttackLabel" destination="ygt-wp-75e" id="DsF-zS-ckI"/>
+                        <outlet property="currentEvoImage" destination="eXE-2k-tyL" id="E95-gi-qZD"/>
+                        <outlet property="defenseLabel" destination="uxc-q5-xXG" id="61X-6V-XdQ"/>
+                        <outlet property="descriptionLabel" destination="eaU-Po-J16" id="7MT-lM-Lzg"/>
+                        <outlet property="evoLabel" destination="10J-MI-zH6" id="3Ok-rL-NWy"/>
+                        <outlet property="extEvoImage" destination="D1B-ka-zur" id="CrN-mE-uwm"/>
+                        <outlet property="heightLabel" destination="zav-qk-YUI" id="LpB-pa-r2b"/>
+                        <outlet property="mainImage" destination="Vsk-DN-JlN" id="AOv-s5-mLP"/>
+                        <outlet property="nameLabel" destination="XTS-V0-UbW" id="3dw-Qf-bzS"/>
+                        <outlet property="pokedexIDLabel" destination="Bta-2m-58A" id="AGq-66-Efm"/>
+                        <outlet property="typeLabel" destination="87b-Hq-dPh" id="9sq-Ru-T5A"/>
+                        <outlet property="weightLabel" destination="Y7u-N7-hib" id="gH9-Qb-GUm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rA2-AB-Tlp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
