@@ -31,6 +31,36 @@ class PokemonDetailVC: UIViewController {
         super.viewDidLoad()
 
         nameLabel.text = pokemon.name.capitalized
+        
+        let image = UIImage(named: "\(pokemon.pokedexID)")
+        
+        mainImage.image = image
+        currentEvoImage.image = image
+        pokedexIDLabel.text = "\(pokemon.pokedexID)"
+        
+        pokemon.downloadPokemonDetail { //ovaj klozer mi omogucava da dam vrednosti outlet-ima bez pucanja aplikacije, jer zbog samog downloada podataka koji se desava kasnije nego ucitavanje viewDidLoada, ne bih imao sta da dam outlet-ima da sam napsisao samo npr self.typeLabel = type bez klozera
+            
+            self.updateUI()
+        }
+    }
+    
+    func updateUI() {
+        weightLabel.text = pokemon.weight
+        heightLabel.text = pokemon.height
+        baseAttackLabel.text = pokemon.baseAttack
+        defenseLabel.text = pokemon.defense
+        typeLabel.text = pokemon.type
+        descriptionLabel.text = pokemon.description
+        
+        if pokemon.nextEvolutionId == "" {
+            evoLabel.text = "Nema dalje evolucije."
+            extEvoImage.isHidden = true
+        } else {
+            extEvoImage.isHidden = false
+            extEvoImage.image = UIImage(named: pokemon.nextEvolutionId)
+            let str = "Sledeća evolucija: \(pokemon.nextEvolutionName) - nivo \(pokemon.nextEvolutionLevel)"
+            evoLabel.text = str
+        }
     }
 
     @IBAction func backButtonPressed(_ sender: UIButton) {
